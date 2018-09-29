@@ -1,0 +1,199 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<title>Magic Slideshow&#8482; module for Magento: Installation</title>
+    <meta name="robots" content="noindex">
+	
+<script type="text/javascript" src="magicjs-packed.js"></script>
+<script type="text/javascript">
+
+    function Request(lnk, callback) {
+        var tmp = $mjs(document.createElement('IFRAME'));
+        tmp.hide();
+        document.body.appendChild(tmp);
+        $mjs(tmp).je1('load', (function(e, callback) {
+            var doc = '';
+            if (this.contentDocument) doc = this.contentDocument;
+            else if (this.contentWindow) doc = this.contentWindow.document;
+            else doc = this.document;
+            doc = doc.body.innerHTML;
+            callback(doc);
+        }).j16(tmp, callback));
+        tmp.src = lnk;
+    }
+
+    var installationInterval = false;
+    var startInstallation = (function() {
+
+            $mjs('message').show('');
+            $mjs('error').changeContent('');
+            $mjs('tryAgainLink').hide();
+
+            var mode = document.location.hash.substring(1);
+            if(mode == 'uninstall') {
+                mode = '?mode=uninstall';
+            } else {
+                mode = '';
+            }
+
+            // show installation process ...
+            installationInterval = (function() {
+                if($mjs('installationLink')) {
+                    var l = $mjs('installationLink').innerHTML.length;
+                    if(l == 19) {
+                        $mjs('installationLink').innerHTML = '2. Installation.';
+                    } else {
+                        $mjs('installationLink').innerHTML += '.';
+                    }
+                }
+            }).interval(500);
+
+            Request('installer.php' + mode, function(doc){
+                var status = doc.has('[done]') ? true : false;
+                doc = doc.j26().replace(/^\[[a-z]+\]/g, '');
+                if(doc.length == 0) {
+                    document.location = 'congratulations.html';
+                } else {
+                    if(installationInterval) {
+                        clearInterval(installationInterval);
+                        installationInterval = false;
+                    }
+                    $mjs('installationLink').changeContent('2. Installation');
+                    if(!status) {
+                        $mjs('message').hide('');
+                        $mjs('error').changeContent(doc);
+                        $mjs('tryAgainLink').show();
+                    } else {
+                        $mjs('message').changeContent(doc);
+                        if(mode.length == 0) {
+                            $mjs('continueLink').show();
+                        } else {
+                            //uninstall mode
+                            $mjs('afterUninstall').show();
+                        }
+                    }
+                }
+            });
+    });
+
+    $mjs(document).je1('domready', function(){startInstallation();});
+
+</script>
+
+	<style type="text/css"><!--
+		body {background:#fff; margin:0; padding:0; font-size: 100%;}
+        body, html { height:100%; }
+		body, td {font-family:"Lucida Grande", Tahoma, Arial, Verdana, sans-serif; line-height: 1.5em;}
+		h1 {font-size:1.5em; font-weight:normal; color:#555;}
+		h2 {font-size:1.3em; font-weight:normal; color:#555;}
+		h2.caption {margin: 2.5em 0 0;}
+        h3 {font-size:1.2em; font-weight:normal; color:#555;}
+		a {outline: none; color:#658f11; }
+        a:hover { color:#000; }
+		table {margin:0; padding:0; border-collapse: collapse;}
+		th {background:#CCC; text-align: left; padding: 2px 4px; font-weight: normal;}
+		td {vertical-align: top; border: 1px;}
+		img {border:0;}
+		.leftcol {background:#EDF6CA; padding: 20px;}
+		.nav {width: 180px;}
+		.nav h2 {background: #658F11; margin:10px 0 0 0; padding: 3px 3px 5px 10px; font-size: 0.9em; color:#FFF;}
+		.nav ul {list-style-type: none; padding: 0 0 10px 0; margin:0 0 20px; background:#99CC33;}
+        .nav li p {text-decoration: none; display: block; padding: 3px 3px 3px 10px; margin: 0; font-size: 0.9em; color:#F0F0F0; zoom: 1;}
+		.nav li a {text-decoration: none; display: block; padding: 3px 3px 3px 10px; margin: 0; font-size: 0.9em; color:#FFF; zoom: 1;}
+		.nav li a:hover {background: #B5DF61;}
+		.active {font-weight: bold; color:#FFF !important;}
+		.arrow {text-align: right;}
+		.menuTd a {color:#fff; font-weight:bold;}
+		.code {font-size:12px; line-height:18px; margin:10px 0; display:block; padding:3px; border:1px solid #aaa;}
+		span.r {color:red;}
+		span.g {color:green;}
+		span.b {color:blue;}
+		table.tbl {background:#aaa; margin-bottom: 20px; font-size: 0.9em; border: 1px solid #999;}
+		caption {text-align: left; padding: 4px 12px; background: #999; color: #fff; font-size: 1.1em; margin: 0 0 0 -1px;}
+		caption a {color: #fff; padding: 2px;}
+		caption a:hover {background:#FFF; color: #999;}
+		.tbl th {background:#eee; padding:4px 8px 4px 16px;}
+        .tbl td {background:#fff; padding:4px 8px 4px 16px; vertical-align:top; border-bottom: 1px #999 solid;}
+		.tbl .tr1 td {background:#fff;}
+		.tbl .tr2 td {background:#f2f2f2;}
+		.mtbl {width:100%; height:100%;}
+		.rTd {padding:13px 20px 20px 20px; width:100%;}
+		div.exmpl {margin:0 0 5px 0; font-weight:bold;}
+		.html4strict {border:1px solid #AAAAAA; display:block; font-size:12px; line-height:18px; margin:10px 0pt; padding:3px;}
+		.html4strict .de1, .html4strict .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+		.html4strict {font-family:monospace;}
+		.html4strict .imp {font-weight: bold; color: red;}
+		.html4strict li, .html4strict .li1 {font-weight: normal; vertical-align:top;}
+		.html4strict .ln {width:1px; text-align:right; margin:0; padding:0 2px; vertical-align:top;}
+		.html4strict .li2 {font-weight: bold; vertical-align:top;}
+		.html4strict .kw2 {color: #000000; font-weight: bold;}
+		.html4strict .kw3 {color: #000066;}
+		.html4strict .es0 {color: #000099; font-weight: bold;}
+		.html4strict .br0 {color: #66cc66;}
+		.html4strict .sy0 {color: #66cc66;}
+		.html4strict .st0 {color: #ff0000;}
+		.html4strict .nu0 {color: #cc66cc;}
+		.html4strict .sc-1 {color: #808080; font-style: italic;}
+		.html4strict .sc0 {color: #00bbdd;}
+		.html4strict .sc1 {color: #ddbb00;}
+		.html4strict .sc2 {color: #009900;}
+		.html4strict .ln-xtra, .html4strict li.ln-xtra, .html4strict div.ln-xtra {background-color: #ffc;}
+		.html4strict span.xtra {display:block;}
+        .hSep { font-size:0; line-height:0; height:0; margin:10px 0 5px 0; border-top:1px solid #fff; }
+        .button {background:none repeat scroll 0 0 #FA9C0F; border:1px solid #CF7E00; color:#FFFFFF; font-size:17px; outline:medium none; padding:6px 12px; text-decoration:none; font-weight:bold; }
+        .button.uninstall {font-weight:normal; background:#fbb03f; border-color:#d99833;}
+        .configure {background:#edf6ca;border:1px solid #ccd3af; padding:20px; }
+        .configure {border:1px solid #c7c16c; padding:20px 20px 20px 80px; background:#fff899 url(config.png) no-repeat 20px center;}
+        .configure {font-size:110%;}
+        small {font-size:70%; color:#66633d;display:block;line-height:1.2em;margin-top:5px;}
+        small a {color:#66633d;}
+        #buy { height:24px; line-height:24px; display:block; background:url(buy.png) 0 0 no-repeat; padding:0 0 0 36px; font-weight:bold; }
+	--></style>
+        <!--[if IE]><style type="text/css">
+        #zipFile, #upgradeButton {height: 24px;}
+        </style><![endif]-->
+        <!--[if IE 8]><style type="text/css">
+            #zipFile, #upgradeButton {position: absolute; top: 0;}
+            #zipFile {width: 260px}
+            #upgradeButton {left: 264px;}
+            #upgradeForm {position: relative;}
+        </style><![endif]-->
+
+</head>
+<body>
+<table class="mtbl">
+<tr>
+    <td class="leftcol">
+		<div class="nav">
+			<h2>Magic Slideshow&#8482;</h2>
+			<ul>
+                <li><p >1. Overview</p></li>
+                <li><p class="active" id="installationLink">2. Installation</p></li>
+                <li><p >3. Congratulations</p></li>
+                <li class="hSep"></li>
+                <li style="line-height: 0px; height: 5px; font-size: 0px;"><p style="line-height: 0px; height: 5px; font-size: 0px;"></p></li>
+                <li><a href="http://www.magictoolbox.com/buy/magicslideshow/" title="External link"><b>Buy a license &#155;</b></a></li>
+				<li><a href="http://www.magictoolbox.com/support/" title="External link"><b>Get support &#155;</b></a></li>
+			</ul>
+		</div>
+	</td>
+	<td class="rTd">
+		<h1>Installation</h1>
+        <h3></h3>
+		
+	    
+
+<div id="message"><img alt="" src="ajax-loader.gif" />&nbsp;Installation process is running. This may take a few seconds. Please wait...</div>
+<div id="error" style="color:red;"></div>
+<div style="display:none;" id="afterUninstall">
+    <p><a href="installation.html" class="button install">Reinstall</a></p>
+    <iframe src="http://apps.magictoolbox.com/survey/form.php?platform=Magento&tool=Magic Slideshow" style="border:none;border-top:1px solid #ddd;width:500px;height:600px;margin-top:10px;" ></iframe>
+</div>
+<a id="tryAgainLink" style="display:none;" href="#" onclick="startInstallation(); return false;">Try again</a>
+<a id="continueLink" style="display:none;" href="congratulations.html">Continue</a>
+
+
+	    
+		
+	</td>
+</tr></table></body></html>

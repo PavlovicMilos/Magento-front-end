@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <magictoolbox translate="title" module="magicslideshow">
+            <title>Magic Toolbox</title>
+            <sort_order>300</sort_order>
+            <children>
+                <magicslideshow translate="title" module="magicslideshow">
+                    <title>Magic Slideshow settings</title>
+                    <sort_order>10</sort_order>
+                    <action>adminhtml/magicslideshow/index</action>
+                </magicslideshow>
+            </children>
+        </magictoolbox>
+    </menu>
+</config>

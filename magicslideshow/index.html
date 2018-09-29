@@ -1,0 +1,221 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<title>Magic Slideshow&#8482; module for Magento: Overview</title>
+    <meta name="robots" content="noindex">
+	
+    <script type="text/javascript" src="magicjs-packed.js"></script>
+    <script type="text/javascript">
+
+        var response = null;
+        var config = null;
+
+        function Request(lnk, callback) {
+            var tmp = $mjs(document.createElement('IFRAME'));
+            tmp.hide();
+            document.body.appendChild(tmp);
+            $mjs(tmp).je1('load', (function(e, callback ) {
+                callback((this.contentDocument || this.contentWindow.document || this.document).body.innerHTML);
+            }).j16(tmp, callback));
+            tmp.src = lnk;
+        }
+
+        $mjs(document).je1('domready', function() {
+            Request('installer.php?mode=check', function(doc) {
+                try {
+                    response = eval( "(" + doc + ")" );
+                } catch (e) {
+                    $mjs('error').changeContent(doc);
+                }
+                if(response.baseURL !== false) {
+                    response.baseURL = response.baseURL+'magicslideshow/';
+                    if(window.location.href != response.baseURL) {
+                        window.location.replace(response.baseURL);
+                    }
+                }
+                if(response.isModuleInstalled === true) {
+                    $mjs('moduleInstalled').j6({'display': 'inline', 'visibility': 'visible'});
+                    $mjs('buttonsDiv').j6({'display': 'block', 'visibility': 'visible'});
+                }
+                Request('installer.php?mode=getConfig', function(doc) {
+                    try {
+                        config = eval( "(" + doc + ")" );
+                    } catch (e) {
+                        //$mjs('error').changeContent(doc);
+                    }
+                    if(config && config.upgrade) {
+                        $mjs('currentVersion').innerHTML = config.version.module;
+                        $mjs('latestVersion').innerHTML = config.upgrade;
+                        if(response.isModuleInstalled === false) {
+                            $mjs('upgradeModule').j6({'display': 'block', 'visibility': 'visible'});
+                            $mjs('startInstallationText').j6({'display': 'none'});
+                        }
+                    }
+                });
+                if(response.isModuleInstalled === false) {
+                    $mjs('buttonsDiv').j6({'display': 'block', 'visibility': 'visible'});
+                }
+            });
+        });
+
+    </script>
+
+	<style type="text/css"><!--
+		body {background:#fff; margin:0; padding:0; font-size: 100%;}
+        body, html { height:100%; }
+		body, td {font-family:"Lucida Grande", Tahoma, Arial, Verdana, sans-serif; line-height: 1.5em;}
+		h1 {font-size:1.5em; font-weight:normal; color:#555;}
+		h2 {font-size:1.3em; font-weight:normal; color:#555;}
+		h2.caption {margin: 2.5em 0 0;}
+        h3 {font-size:1.2em; font-weight:normal; color:#555;}
+		a {outline: none; color:#658f11; }
+        a:hover { color:#000; }
+		table {margin:0; padding:0; border-collapse: collapse;}
+		th {background:#CCC; text-align: left; padding: 2px 4px; font-weight: normal;}
+		td {vertical-align: top; border: 1px;}
+		img {border:0;}
+		.leftcol {background:#EDF6CA; padding: 20px;}
+		.nav {width: 180px;}
+		.nav h2 {background: #658F11; margin:10px 0 0 0; padding: 3px 3px 5px 10px; font-size: 0.9em; color:#FFF;}
+		.nav ul {list-style-type: none; padding: 0 0 10px 0; margin:0 0 20px; background:#99CC33;}
+        .nav li p {text-decoration: none; display: block; padding: 3px 3px 3px 10px; margin: 0; font-size: 0.9em; color:#F0F0F0; zoom: 1;}
+		.nav li a {text-decoration: none; display: block; padding: 3px 3px 3px 10px; margin: 0; font-size: 0.9em; color:#FFF; zoom: 1;}
+		.nav li a:hover {background: #B5DF61;}
+		.active {font-weight: bold; color:#FFF !important;}
+		.arrow {text-align: right;}
+		.menuTd a {color:#fff; font-weight:bold;}
+		.code {font-size:12px; line-height:18px; margin:10px 0; display:block; padding:3px; border:1px solid #aaa;}
+		span.r {color:red;}
+		span.g {color:green;}
+		span.b {color:blue;}
+		table.tbl {background:#aaa; margin-bottom: 20px; font-size: 0.9em; border: 1px solid #999;}
+		caption {text-align: left; padding: 4px 12px; background: #999; color: #fff; font-size: 1.1em; margin: 0 0 0 -1px;}
+		caption a {color: #fff; padding: 2px;}
+		caption a:hover {background:#FFF; color: #999;}
+		.tbl th {background:#eee; padding:4px 8px 4px 16px;}
+        .tbl td {background:#fff; padding:4px 8px 4px 16px; vertical-align:top; border-bottom: 1px #999 solid;}
+		.tbl .tr1 td {background:#fff;}
+		.tbl .tr2 td {background:#f2f2f2;}
+		.mtbl {width:100%; height:100%;}
+		.rTd {padding:13px 20px 20px 20px; width:100%;}
+		div.exmpl {margin:0 0 5px 0; font-weight:bold;}
+		.html4strict {border:1px solid #AAAAAA; display:block; font-size:12px; line-height:18px; margin:10px 0pt; padding:3px;}
+		.html4strict .de1, .html4strict .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+		.html4strict {font-family:monospace;}
+		.html4strict .imp {font-weight: bold; color: red;}
+		.html4strict li, .html4strict .li1 {font-weight: normal; vertical-align:top;}
+		.html4strict .ln {width:1px; text-align:right; margin:0; padding:0 2px; vertical-align:top;}
+		.html4strict .li2 {font-weight: bold; vertical-align:top;}
+		.html4strict .kw2 {color: #000000; font-weight: bold;}
+		.html4strict .kw3 {color: #000066;}
+		.html4strict .es0 {color: #000099; font-weight: bold;}
+		.html4strict .br0 {color: #66cc66;}
+		.html4strict .sy0 {color: #66cc66;}
+		.html4strict .st0 {color: #ff0000;}
+		.html4strict .nu0 {color: #cc66cc;}
+		.html4strict .sc-1 {color: #808080; font-style: italic;}
+		.html4strict .sc0 {color: #00bbdd;}
+		.html4strict .sc1 {color: #ddbb00;}
+		.html4strict .sc2 {color: #009900;}
+		.html4strict .ln-xtra, .html4strict li.ln-xtra, .html4strict div.ln-xtra {background-color: #ffc;}
+		.html4strict span.xtra {display:block;}
+        .hSep { font-size:0; line-height:0; height:0; margin:10px 0 5px 0; border-top:1px solid #fff; }
+        .button {background:none repeat scroll 0 0 #FA9C0F; border:1px solid #CF7E00; color:#FFFFFF; font-size:17px; outline:medium none; padding:6px 12px; text-decoration:none; font-weight:bold; }
+        .button.uninstall {font-weight:normal; background:#fbb03f; border-color:#d99833;}
+        .configure {background:#edf6ca;border:1px solid #ccd3af; padding:20px; }
+        .configure {border:1px solid #c7c16c; padding:20px 20px 20px 80px; background:#fff899 url(config.png) no-repeat 20px center;}
+        .configure {font-size:110%;}
+        small {font-size:70%; color:#66633d;display:block;line-height:1.2em;margin-top:5px;}
+        small a {color:#66633d;}
+        #buy { height:24px; line-height:24px; display:block; background:url(buy.png) 0 0 no-repeat; padding:0 0 0 36px; font-weight:bold; }
+	--></style>
+        <!--[if IE]><style type="text/css">
+        #zipFile, #upgradeButton {height: 24px;}
+        </style><![endif]-->
+        <!--[if IE 8]><style type="text/css">
+            #zipFile, #upgradeButton {position: absolute; top: 0;}
+            #zipFile {width: 260px}
+            #upgradeButton {left: 264px;}
+            #upgradeForm {position: relative;}
+        </style><![endif]-->
+
+</head>
+<body>
+<table class="mtbl">
+<tr>
+    <td class="leftcol">
+		<div class="nav">
+			<h2>Magic Slideshow&#8482;</h2>
+			<ul>
+                <li><p class="active">1. Overview</p></li>
+                <li><p >2. Installation</p></li>
+                <li><p >3. Congratulations</p></li>
+                <li class="hSep"></li>
+                <li style="line-height: 0px; height: 5px; font-size: 0px;"><p style="line-height: 0px; height: 5px; font-size: 0px;"></p></li>
+                <li><a href="http://www.magictoolbox.com/buy/magicslideshow/" title="External link"><b>Buy a license &#155;</b></a></li>
+				<li><a href="http://www.magictoolbox.com/support/" title="External link"><b>Get support &#155;</b></a></li>
+			</ul>
+		</div>
+	</td>
+	<td class="rTd">
+		<h1>Overview</h1>
+        <h3></h3>
+		
+	    
+        This will install/uninstall the Magic Slideshow&#8482; module on your Magento store.
+        <br />
+        <br />
+        <div id="error" style="color:red;"></div>
+        <div style="display:none;" id="moduleInstalled">
+        <h2 style="margin: 0">Another Magic Slideshow module detected!</h2>
+        <br />
+        Another installation of the module detected!
+        <br />
+        <br />
+        We recommend that you uninstall it before installing this one.
+        <br />
+        <br />
+        </div>
+        <div style="display:none;" id="upgradeModule">
+        <h2 style="margin: 0">New version available!</h2>
+        <br />
+        You are trying to install an old version of the module.
+        <br />
+        <br />
+        This version: <span id="currentVersion">undefined</span>
+        <br />
+        <br />
+        Latest version: <span id="latestVersion">undefined</span>
+        <br />
+        <br />
+        We recommend that you download the latest version of the module here:
+        <br />
+        <br />
+        <a href="http://www.magictoolbox.com/magicslideshow/modules/magento/" target="_blank">www.magictoolbox.com/magicslideshow/modules/magento/</a>
+
+        <br />
+        <br />
+        Otherwise, click "Install" to continue with this older version.
+        </div>
+        <div style="display:none;" id="buttonsDiv">
+            <span id="startInstallationText">Before you click 'Install', ensure all files in the magicslideshow folder have finished uploading.</span>
+            <br />
+            <br />
+            <a href="installation.html" class="button install">Install</a>&nbsp;&nbsp;<a href="installation.html#uninstall" class="button uninstall">Uninstall</a>&nbsp;&nbsp;
+        </div>
+        <br />
+        <br />
+        <h2>Upgrade</h2>
+        <p>To remove the red "Please upgrade" text:
+        <ol>
+            <li><a target="_blank" href="http://www.magictoolbox.com/buy/magicslideshow/">Buy a license</a> for Magic Slideshow&#8482;.</li>
+            <li>Unzip your license and identify the magicslideshow.js.</li>
+            <li>Upload your licensed magicslideshow.js file by FTP, overwriting the demo file here: <br/><b>skin/frontend/[your_interface]/[your_theme]/js/magicslideshow.js</b></li>
+        </ol>
+        </p>
+
+
+	    
+		
+	</td>
+</tr></table></body></html>

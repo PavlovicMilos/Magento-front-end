@@ -1,0 +1,133 @@
+
+/* NOTE: contaner with main image and selector's container */
+div.MagicToolboxContainer {
+    text-align: center;
+}
+div.MagicToolboxContainer.minWidth {
+    min-width: 250px;
+}
+
+/* NOTE: contaner with message under Magic Slideshow */
+div.MagicToolboxMessage {
+    text-align: center;
+}
+
+/* NOTE: magicscroll makes the image smaller if there is a margin */
+/*
+.MagicScrollItem a {
+    margin: 0 !important;
+}
+*/
+
+
+div.MagicToolboxContainer.selectorsLeft,
+div.MagicToolboxContainer.selectorsRight {
+    display: -ms-flex;
+    display: -webkit-flex;
+    display: flex;
+}
+
+div.MagicToolboxContainer.selectorsLeft .MagicToolboxSelectorsContainer,
+div.MagicToolboxContainer.selectorsRight .MagicToolboxSelectorsContainer {
+    min-height: 300px;
+}
+
+div.MagicToolboxContainer.selectorsLeft .MagicToolboxMainContainer,
+div.MagicToolboxContainer.selectorsRight .MagicToolboxMainContainer {
+    flex-grow: 1;
+}
+
+div.MagicToolboxContainer.selectorsLeft .MagicToolboxMainContainer,
+div.MagicToolboxContainer.selectorsRight .MagicToolboxMainContainer {
+    font-size:0px;
+}
+
+div.MagicToolboxContainer.selectorsLeft .MagicToolboxSelectorsContainer a,
+div.MagicToolboxContainer.selectorsRight .MagicToolboxSelectorsContainer a {
+    margin:0 0 10px 0;
+}
+
+div.MagicToolboxContainer.selectorsLeft .MagicToolboxSelectorsContainer {
+
+}
+div.MagicToolboxContainer.selectorsRight .MagicToolboxSelectorsContainer {
+}
+
+div.MagicToolboxContainer.selectorsLeft .MagicToolboxMainContainer {
+    width: auto;
+    padding-left: 10px;
+}
+div.MagicToolboxContainer.selectorsRight .MagicToolboxMainContainer {
+    width: auto;
+    padding-right: 10px;
+}
+
+div.MagicToolboxContainer.selectorsLeft .MagicToolboxSelectorsContainer,
+div.MagicToolboxContainer.selectorsRight .MagicToolboxSelectorsContainer {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+}
+
+div.MagicToolboxContainer.selectorsLeft .MagicToolboxSelectorsContainer .MagicScroll,
+div.MagicToolboxContainer.selectorsRight .MagicToolboxSelectorsContainer .MagicScroll {
+    height: 100%;
+    flex:1;
+}
+
+div.MagicToolboxContainer.selectorsLeft .MagicToolboxSelectorsContainer .MagicScroll a,
+div.MagicToolboxContainer.selectorsRight .MagicToolboxSelectorsContainer .MagicScroll a {
+    margin: 0;
+}
+
+@media only screen and (max-width: 767px) {
+    div.MagicToolboxContainer.selectorsLeft,
+    div.MagicToolboxContainer.selectorsRight {
+        flex-direction: column;
+    }
+    div.MagicToolboxContainer.selectorsLeft .MagicToolboxSelectorsContainer,
+    div.MagicToolboxContainer.selectorsRight .MagicToolboxSelectorsContainer {
+        order:2;
+        width: 100% !important;
+        margin-bottom:10px;
+        min-height: 0px;
+        flex:auto;
+        flex-basis: auto !important;
+    }
+    div.MagicToolboxContainer.selectorsLeft .MagicToolboxSelectorsContainer a,
+    div.MagicToolboxContainer.selectorsRight .MagicToolboxSelectorsContainer a {
+        margin:10px 5px;
+    }
+
+    div.MagicToolboxContainer.selectorsLeft .MagicToolboxMainContainer,
+    div.MagicToolboxContainer.selectorsRight .MagicToolboxMainContainer {
+        order:1;
+        padding:0px;
+    }
+    div.MagicToolboxContainer.selectorsLeft .MagicToolboxSelectorsContainer:after,
+    div.MagicToolboxContainer.selectorsRight .MagicToolboxSelectorsContainer:after {
+        content: none;
+    }
+    div.MagicToolboxContainer.selectorsLeft .MagicToolboxSelectorsContainer .MagicScroll,
+    div.MagicToolboxContainer.selectorsRight .MagicToolboxSelectorsContainer .MagicScroll {
+        height: auto;
+    }
+    div.MagicToolboxContainer.selectorsLeft .MagicToolboxSelectorsContainer .MagicScroll,
+    div.MagicToolboxContainer.selectorsRight .MagicToolboxSelectorsContainer .MagicScroll {
+        margin: 10px 0 0 0;
+    }
+}
+.invisible,
+.hidden-selector {
+    display: none !important;
+}
+.ignore-magento-css {
+    width: auto !important;
+    height: auto !important;
+    margin: 0 !important;
+}
+
+.mt-customslideshowblock {
+    text-align: center;
+}

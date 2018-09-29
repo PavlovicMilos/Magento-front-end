@@ -1,0 +1,96 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+/**
+ * @var Mage_Page_Block_Html_Header $this
+ */
+?>
+
+<div class="header-language-background">
+    <div class="header-language-container">
+        <div class="store-language-container">
+            <?php echo $this->getChildHtml('store_language') ?>
+        </div>
+
+        <?php echo $this->getChildHtml('currency_switcher') ?>
+
+        <p class="welcome-msg"><?php echo $this->getChildHtml('welcome') ?> <?php echo $this->getChildHtml('accountLinks') ?></p>
+    </div>
+</div>
+
+<header id="header" class="page-header">
+    <div class="page-header-container">
+    	<div class="header-contact-info">
+    		<p><i class="fa fa-phone" aria-hidden="true"></i>&nbsp;&nbsp;<span>Call&nbsp;&nbsp;+31 (0) 613938947</span></p>
+    	</div>
+    	<div class="header-logo-and-search clear-fix">
+    		<div class="row">
+    			<div class="clear-fix col-3">
+    				<a class="logo" href="<?php echo $this->getUrl('') ?>">
+			            <img src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" class="large" />
+			            <img src="<?php echo $this->getLogoSrcSmall() ?>" alt="<?php echo $this->getLogoAlt() ?>" class="small" />
+			        </a>
+    			</div>
+    			<div class="clear-fix col-6">
+    				<!-- Search -->
+			        <div id="header-search" class="skip-content">
+			            <?php echo $this->getChildHtml('topSearch') ?>
+			        </div>
+    			</div>
+    		</div>
+	        
+	        
+	        
+		</div>
+		
+        <?php // In order for the language switcher to display next to logo on smaller viewports, it will be moved here.
+              // See app.js for details ?>
+        <div class="store-language-container"></div>
+
+		<div class="main-nav-conatiner">
+			<div class="row">
+				<div class="clear-fix col-8">
+					<!-- Navigation -->
+			        <div id="header-nav" class="skip-content">
+			            <?php echo $this->getChildHtml('topMenu') ?>
+			        </div>
+				</div>
+				<div class="clear-fix col-1 empty-col">
+					
+				</div>
+				<div class="clear-fix col-3">
+					<!-- Account -->
+			        <div id="header-account" class="skip-content">
+			            <?php echo $this->getChildHtml('topLinks') ?>
+			        </div>
+				</div>
+			</div>
+		</div>
+        
+    </div>
+</header>
+
+
+<?php echo $this->getChildHtml('topContainer'); ?>

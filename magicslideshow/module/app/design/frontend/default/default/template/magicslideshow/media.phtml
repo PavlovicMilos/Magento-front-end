@@ -1,0 +1,94 @@
+<?php
+
+/* @var $this Mage_Catalog_Block_Product_View_Media */
+
+$magicToolboxHelper = Mage::helper('magicslideshow/settings');
+$mtDataHelper = Mage::helper('magicslideshow');
+
+$templateFilename = $magicToolboxHelper->getTemplateFilename('product.info.media');
+
+$tool = $magicToolboxHelper->loadTool('product');
+
+if($tool->params->checkValue('enable-effect', 'No')) {
+    require($templateFilename);
+    return;
+}
+
+$productModel = $this->getProduct();
+$galleryImages = array();
+$galleryImagesCount = 0;
+if(!$this->_isGalleryDisabled) {
+    $galleryImages = $this->getGalleryImages();
+    $galleryImagesCount = count($galleryImages->getItems());
+}
+
+$productImages = array();
+
+if($galleryImagesCount) {
+
+    foreach($galleryImages as $galleryImage) {
+        if (!$mtDataHelper->isGalleryImageVisible($productModel, $galleryImage)) {
+            continue;
+        }
+
+        $imagePath = $galleryImage->getPath();
+        if(file_exists($imagePath)) {
+            $imageFile = $galleryImage->getFile();
+            $productImages[] = array(
+                'image-size' => getimagesize($imagePath),
+                'image-file' => $imageFile,
+                'image-label' => $galleryImage->getLabel(),
+            );
+        }
+    }
+}
+
+if(!count($productImages)) {
+    require($templateFilename);
+    return;
+}
+
+$productId = $productModel->getId();
+
+$outputHelper = $this->helper('catalog/output');
+$imageHelper = $this->helper('catalog/image');
+
+$productTitle = $this->htmlEscape($productModel->getName());
+
+$createSquareImages = $tool->params->checkValue('square-images', 'Yes');
+$useIndividualTitles = $tool->params->checkValue('use-individual-titles', 'Yes');
+
+$mainHTML = '';
+
+foreach($productImages as &$productImage) {
+
+    $bigImage = $imageHelper->init($productModel, 'image', $productImage['image-file'])->__toString();
+
+    if($createSquareImages) {
+        $bigImageSize = ($productImage['image-size'][0] > $productImage['image-size'][1]) ? $productImage['image-size'][0] : $productImage['image-size'][1];
+        $bigImage = $imageHelper->watermark(null, null)->resize($bigImageSize)->__toString();
+    }
+
+    list($w, $h) = $magicToolboxHelper->magicToolboxGetSizes('thumb', $productImage['image-size']);
+    $mediumImage = $imageHelper->watermark(null, null)->resize($w, $h)->__toString();
+
+    list($w, $h) = $magicToolboxHelper->magicToolboxGetSizes('selector', $productImage['image-size']);
+    $thumbImage = $imageHelper->init($productModel, 'thumbnail', $productImage['image-file'])->resize($w, $h)->__toString();
+
+    $productImage['alt'] = $this->htmlEscape($productImage['image-label']);
+    $productImage['title'] = $productTitle;
+
+    $productImage['img'] = $mediumImage;
+    $productImage['thumb'] = $thumbImage;
+    $productImage['fullscreen'] = $bigImage;
+}
+
+$mainHTML = $tool->getMainTemplate($productImages, array('id' => 'productMagicSlideshow'));
+echo $mainHTML;
+
+echo '<img id="image" src="data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=" alt="" class="invisible" />';
+
+//NOTE: small fix for amconf extension
+if(preg_match('/amconf\/ajax\/index\//ims', $_SERVER['REQUEST_URI'])) {
+    echo '<script type="text/javascript">MagicSlideshow.start();magicToolboxPrepareOptions();</script>';
+}

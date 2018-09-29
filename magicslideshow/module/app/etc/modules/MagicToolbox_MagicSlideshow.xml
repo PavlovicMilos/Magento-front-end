@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <MagicToolbox_MagicSlideshow>
+            <active>true</active>
+            <codePool>local</codePool>
+        </MagicToolbox_MagicSlideshow>
+    </modules>
+</config>

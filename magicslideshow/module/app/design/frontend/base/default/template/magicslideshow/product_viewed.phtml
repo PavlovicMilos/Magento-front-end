@@ -1,0 +1,82 @@
+<?php
+
+/* @var $this Mage_Reports_Block_Product_Viewed */
+
+//$templateFilename = Mage::getSingleton('core/design_package')->getTemplateFilename('reports'.DS.'product_viewed.phtml');
+//$templateFilename = Mage::getSingleton('core/design_package')->getTemplateFilename('reports'.DS.'widget'.DS.'viewed'.DS.'column'.DS.'viewed_default_list.phtml');
+$magicToolboxHelper = Mage::helper('magicslideshow/settings');
+$tool = $magicToolboxHelper->loadTool('recentlyviewedproductsblock');
+
+$enableEffect = !$tool->params->checkValue('enable-effect', 'No');
+
+$templateFilename = $magicToolboxHelper->getTemplateFilename($this->getBlockAlias());
+
+//NOTE: in some strange cases Mage_Core_Model_Design_Package::getTemplateFilename function return path to template folder
+//      so this is a temporary spike
+if(!is_file($templateFilename)) {
+    return;
+}
+
+if(!$enableEffect) {
+    require($templateFilename);
+    return;
+}
+
+if($_products = $this->getRecentlyViewedProducts()) {
+
+    $pCount = $_products->count();//$this->getCount()
+    if(!$pCount) {
+        require($templateFilename);
+        return;
+    }
+    $useLink = $tool->params->checkValue('link-to-product-page', 'Yes');
+    $group = 'recentlyviewedproductsblock';
+    $magicslideshowData = array();
+
+?>
+<div class="widget widget-viewed">
+    <div class="block block-list">
+        <div class="block-title">
+            <strong><span><?php echo $this->__('Recently Viewed') ?></span></strong>
+        </div>
+        <div class="block-content">
+            <?php foreach($_products as $_product) { ?>
+                <?php
+                    /*<a class="product-image" href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>">
+                        <img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(76) ?>" width="76" height="76" alt="<?php echo $this->stripTags($_product->getName(), null, true) ?>" />
+                    </a>*/
+
+                    $pid = $_product->getId();
+                    $id = $group.'_'.$pid;
+                    $__product = Mage::getModel('catalog/product')->load($pid);
+                    $_small_image_file = $__product->getSmall_image();
+                    if(!$_small_image_file) $_small_image_file == 'no_selection';//NOTE: to use placeholder
+                    $img = $this->helper('catalog/image')->init($__product, 'small_image', $_small_image_file)->__toString();
+                    $originalSizeArray = $this->helper('catalog/image')->getOriginalSizeArray();
+                    if($tool->params->checkValue('square-images', 'Yes')) {
+                        $big_image_size = ($originalSizeArray[0] > $originalSizeArray[1]) ? $originalSizeArray[0] : $originalSizeArray[1];
+                        $img = $this->helper('catalog/image')->watermark(null, null)->resize($big_image_size)->__toString();
+                    }
+                    $magicslideshowData[$pid]['fullscreen'] = $img;
+                    list($w, $h) = $magicToolboxHelper->magicToolboxGetSizes('thumb', $originalSizeArray);
+                    $magicslideshowData[$pid]['img'] = $this->helper('catalog/image')->init($__product, 'small_image', $_small_image_file)->resize($w, $h)->__toString();
+                    list($w, $h) = $magicToolboxHelper->magicToolboxGetSizes('selector', $originalSizeArray);
+                    $magicslideshowData[$pid]['thumb'] = $this->helper('catalog/image')->init($__product, 'thumbnail', $_small_image_file)->resize($w, $h)->__toString();
+
+                    $magicslideshowData[$pid]['title'] = $this->htmlEscape($__product->getName());
+
+                    if($useLink) {
+                        //NOTE: get URL from $_product (not $__product) object
+                        $magicslideshowData[$pid]['link'] = $_product->getProductUrl();
+                    } else {
+                        $magicslideshowData[$pid]['link'] = '';
+                    }
+                ?>
+            <?php }
+                  echo $tool->getMainTemplate($magicslideshowData, array("id" => "recentlyviewedproductsblockMagicSlideshow"));
+            ?>
+        </div>
+    </div>
+</div>
+<?php
+}

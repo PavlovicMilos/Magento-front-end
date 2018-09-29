@@ -1,0 +1,56 @@
+<?php
+$_element = $this->getElement();
+$_note    = $_element->getNote();
+$_trId    = $_element->getHtmlContainerId();
+$_class   = $_element->getFieldsetHtmlClass();
+$_mobile_value = $_element->getData('mobile-value');
+$_element_id = $_element->getData('html_id');
+?>
+<?php if (!$_element->getNoDisplay()): ?>
+<tr<?php if($_trId): ?> id="<?php echo $_trId ?>"<?php endif; ?>>
+    <?php if ($_element->getType()=='hidden'): ?>
+    <td colspan="3" class="hidden"><?php echo trim($_element->getElementHtml()) ?></td>
+    <?php else: ?>
+    <td<?php if($_note): ?> rowspan="2"<?php endif; ?> class="label<?php echo $_class ? " {$_class}-label" : ''?>"><?php echo trim($_element->getLabelHtml()) ?></td>
+    <td class="<?php echo $_element->hasValueClass() ? $_element->getValueClass() : 'value' ?><?php echo $_class ? " {$_class}-value" : ''?>">
+        <?php
+            $_element->setData('html_id', 'desktop-'.$_element_id);
+            echo trim($_element->getElementHtml());
+        ?>
+    </td>
+    <?php if($_mobile_value !== null): ?>
+    <td class="<?php echo $_element->hasValueClass() ? $_element->getValueClass() : 'value' ?><?php echo $_class ? " {$_class}-value" : ''?>">
+        <?php
+            $_element->setData('html_id', 'mobile-'.$_element_id);
+            $_element->setData('value', $_mobile_value);
+            $_element->setData('name', str_replace('[desktop]', '[mobile]', $_element->getData('name')));
+
+            $_element_desktop_only_values = $_element->getData('desktop-only-values');
+            if($_element_desktop_only_values) {
+                $_element_options = $_element->getValues();
+                for($index = 0, $length = count($_element_options); $index < $length; $index++) {
+                    if(in_array($_element_options[$index]['value'], $_element_desktop_only_values)) {
+                        unset($_element_options[$index]);
+                    }
+                }
+                $_element->setValues($_element_options);
+            }
+
+            echo trim($_element->getElementHtml());
+        ?>
+    </td>
+    <?php else: ?>
+    <td class="value">&nbsp;</td>
+    <?php endif; ?>
+    <?php endif; ?>
+    <td>&nbsp;</td>
+</tr>
+<?php if ($_note): ?>
+<tr>
+    <td colspan="2" class="option-note">
+        <p class="note<?php echo $_class ? " {$_class}-note" : ''?>" ><span><?php echo $_note ?></span></p>
+    </td>
+    <td>&nbsp;</td>
+</tr>
+<?php endif ?>
+<?php endif; ?>

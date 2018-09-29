@@ -1,0 +1,57 @@
+<?php
+
+$magicToolboxHelper = Mage::helper('magicslideshow/settings');
+$tool = $magicToolboxHelper->loadTool('customslideshowblock');
+
+$enableEffect = !$tool->params->checkValue('enable-effect', 'No');
+if(!$enableEffect) return;
+
+$gallery = $tool->params->getValue('gallery');
+if(!$gallery) return;
+
+$images = Mage::helper('core')->jsonDecode($gallery);
+
+$magicslideshowData = array();
+
+foreach($images as $image) {
+
+    if($image['disabled']) continue;
+
+    $fullscreen =
+    $img = $this->helper('magicslideshow/image')->init($image['file'])->setWatermarkFile(null)->__toString();
+    $originalSizeArray = $this->helper('magicslideshow/image')->getOriginalSizeArray();
+    list($w, $h) = $magicToolboxHelper->magicToolboxGetSizes('thumb', $originalSizeArray);
+    $img = $this->helper('magicslideshow/image')/*->setWatermarkFile(Mage::getStoreConfig("design/watermark/image_image"))*/->resize($w, $h)->__toString();
+    list($w, $h) = $magicToolboxHelper->magicToolboxGetSizes('selector', $originalSizeArray);
+    $thumb = $this->helper('magicslideshow/image')->init($image['file'])
+        //->setWatermarkFile(Mage::getStoreConfig("design/watermark/thumbnail_image"))
+        //->setWatermarkImageOpacity(Mage::getStoreConfig("design/watermark/thumbnail_imageOpacity"))
+        //->setWatermarkPosition(Mage::getStoreConfig("design/watermark/thumbnail_position"))
+        //->setWatermarkSize(Mage::getStoreConfig("design/watermark/thumbnail_size"))
+        ->resize($w, $h)->__toString();
+
+    $magicslideshowData[] = array(
+        'img' => $img,
+        'thumb' => $thumb,
+        'fullscreen' => $fullscreen,
+        'link' => $image['link'],
+        'title' => $this->htmlEscape($image['label']),
+        'description' => $image['description']
+    );
+
+}
+
+
+$title = $tool->params->getValue('block-title');
+
+?>
+<div class="block block-related">
+<?php if(!empty($title)) { ?>
+    <div class="block-title">
+        <strong><span><?php echo $this->__($title) ?></span></strong>
+    </div>
+<?php } ?>
+    <div class="mt-customslideshowblock block-content">
+        <?php echo $tool->getMainTemplate($magicslideshowData, array("id" => "customslideshowblock")); ?>
+    </div>
+</div>

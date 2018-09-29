@@ -1,0 +1,32 @@
+<?php
+
+$magicToolboxHelper = Mage::helper('magicslideshow/settings');
+
+$tool = $magicToolboxHelper->loadTool();
+$tool->params->resetProfile();
+
+$force = $tool->params->checkValue('include-headers-on-all-pages', 'Yes', 'default');
+$recentlyViewedProductsBlockEffectEnabled = !$tool->params->checkValue('enable-effect', 'No', 'recentlyviewedproductsblock');
+
+
+$page = $this->getPageType();
+
+if($page == 'cms_page') {
+    //$parentBlockAlias = $this->getParentBlock()->getBlockAlias();//NOTE: 'content' when manually connecting in the template
+    $pageIdentifier = Mage::getSingleton('cms/page')->getIdentifier();
+    //NOTE: check for home page
+    if(/*$parentBlockAlias == 'head' && */$pageIdentifier == 'home') {
+        $page = 'home';
+        $this->setPageType('home');
+    } else {
+        $tool->params->setValue('enable-effect', 'No', 'customslideshowblock');
+    }
+}
+$customBlockEffectEnabled = ($page == 'home') && !$tool->params->checkValue('enable-effect', 'No', 'customslideshowblock');
+
+if($force ||
+   $recentlyViewedProductsBlockEffectEnabled ||
+   $customBlockEffectEnabled ||
+   ($tool->params->profileExists($page) && !$tool->params->checkValue('enable-effect', 'No', $page))) {
+    echo $tool->getHeadersTemplate(str_replace('/magicslideshow.js', '', $this->getSkinUrl('js/magicslideshow.js')), str_replace('/magicslideshow.css', '', $this->getSkinUrl('css/magicslideshow/magicslideshow.css')));
+}

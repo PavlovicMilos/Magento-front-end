@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+    </default>
+    <adminhtml_magicslideshow_index>
+        <reference name="content">
+            <block type="magicslideshow/adminhtml_settings" name="settings" />
+        </reference>
+    </adminhtml_magicslideshow_index>
+    <adminhtml_magicslideshow_edit>
+        <update handle="editor"/>
+        <reference name="head">
+            <action method="addCss"><name>magicslideshow/style.css</name></action>
+            <!--<action method="addJs"><name>magicslideshow/options.js</name></action>-->
+            <action method="addItem"><type>skin_js</type><name>magicslideshow/options.js</name></action>
+            <action method="addItem"><type>skin_js</type><name>magicslideshow/gallery.js</name></action>
+        </reference>
+        <reference name="left">
+            <block type="magicslideshow/adminhtml_settings_edit_tabs" name="tabs" before="-"/>
+        </reference>
+        <reference name="content">
+            <block type="magicslideshow/adminhtml_settings_edit" name="edit" />
+        </reference>
+    </adminhtml_magicslideshow_edit>
+    <adminhtml_cache_index>
+        <reference name="cache.additional">
+            <block type="adminhtml/template" name="magicslideshow.cache.additional" template="magicslideshow/cache_additional.phtml" />
+        </reference>
+    </adminhtml_cache_index>
+</layout>

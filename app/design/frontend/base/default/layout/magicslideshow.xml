@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout version="0.1.0">
+    <default>
+        <reference name="head">
+            <block type="magicslideshow/headers" name="magictoolbox_headers" as="magictoolbox_headers" after='-' />
+        </reference>
+        <reference name="magictoolbox_headers">
+            <block type="magicslideshow/header" name="magicslideshow_header" as="magicslideshow_header" />
+        </reference>
+        <reference name="right.reports.product.viewed"><!-- left.reports.product.viewed -->
+            <action method="setTemplate">
+                <template helper="magicslideshow/settings/getBlockTemplate">
+                    <name>right.reports.product.viewed</name>
+                    <template>magicslideshow/product_viewed.phtml</template>
+                </template>
+            </action>
+        </reference>
+        <!-- to display at right side panel -->
+        <!--<reference name="right">
+            <block type="core/template" name="magicslideshow_custom_block"  before="-" template="magicslideshow/customslideshowblock.phtml" />
+        </reference>-->
+    </default>
+    <catalog_product_view>
+        <reference name="magicslideshow_header">
+            <action method="setPageType">
+                <type>product</type>
+            </action>
+        </reference>
+        <reference name="product.info.media">
+            <action method="setTemplate">
+                <template helper="magicslideshow/settings/getBlockTemplate">
+                    <name>product.info.media</name>
+                    <template>magicslideshow/media.phtml</template>
+                </template>
+            </action>
+        </reference>
+    </catalog_product_view>
+    <catalog_category_default>
+        <reference name="left.reports.product.viewed">
+            <action method="setTemplate">
+                <template helper="magicslideshow/settings/getBlockTemplate">
+                    <name>left.reports.product.viewed</name>
+                    <template>magicslideshow/product_viewed.phtml</template>
+                </template>
+            </action>
+        </reference>
+    </catalog_category_default>
+    <catalog_category_layered_nochildren>
+        <reference name="left.reports.product.viewed">
+            <action method="setTemplate">
+                <template helper="magicslideshow/settings/getBlockTemplate">
+                    <name>left.reports.product.viewed</name>
+                    <template>magicslideshow/product_viewed.phtml</template>
+                </template>
+            </action>
+        </reference>
+    </catalog_category_layered_nochildren>
+    <cms_index_index>
+        <reference name="magicslideshow_header">
+            <action method="setPageType">
+                <type>home</type>
+            </action>
+        </reference>
+        <!-- to display at home page -->
+        <reference name="content">
+            <block type="core/template" name="magicslideshow_custom_block"  before="-" template="magicslideshow/customslideshowblock.phtml" />
+        </reference>
+        <!-- to display at right side panel on home page -->
+        <!--<reference name="right">
+            <block type="core/template" name="magicslideshow_custom_block"  before="-" template="magicslideshow/customslideshowblock.phtml" />
+        </reference>-->
+    </cms_index_index>
+    <!-- to display at /home page -->
+    <cms_page_view>
+        <reference name="magicslideshow_header">
+            <action method="setPageType">
+                <type>cms_page</type>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="core/template" name="magicslideshow_custom_block"  before="-" template="magicslideshow/customslideshowblock.phtml" />
+        </reference>
+    </cms_page_view>
+</layout>

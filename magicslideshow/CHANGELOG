@@ -1,0 +1,187 @@
+4.15.9 (2018-07-16)
+    - Fixed an issue with 'Product Videos' field validation in Magento v1.9.3.9.
+4.15.8 (2018-06-07)
+    - Removed 'Caption source' option.
+4.15.7 (2018-05-15)
+    - Fixed configurable products issue when attribute is not shown as swatches.
+4.15.6 (2018-01-15)
+    - Improved module performance on the product list pages.
+4.15.5 (2017-11-01)
+    - Added promo text of Siv app.
+4.15.4 (2017-10-03)
+    - Fixed 'play' icon for video thumbnails.
+    - Fixed an issue with highlighting thumbnails.
+4.15.3 (2017-09-18)
+    - Added native video support for MagicThumb module.
+4.15.2 (2017-09-05)
+    - Fixed some technical report errors.
+4.15.1 (2017-09-01)
+    - Minor improvements.
+4.15.0 (2017-08-10)
+    - Improved ConfigurableSwatches module support.
+    - Added some improvements for product list template.
+4.14.13 (2017-08-03)
+    - Fixed an issue with creating custom settings.
+4.14.12 (2017-07-27)
+    - Fixed an issue with custom block gallery uploader.
+4.14.11 (2017-06-29)
+    - Changed params label.
+4.14.10 (2017-06-19)
+    - Fixed an issue with Amasty Color Swatches Pro extension.
+4.14.9 (2017-03-22)
+    - Added support for new Magic Thumb 3.0
+4.14 (2016-10-27)
+    - Added product's video support.
+4.13 (2016-10-17)
+    - Fixed possible conflict with SUPEE-8788 patch.
+4.12 (2015-04-29)
+    - Added support for products that do not have the base image (MagicZoom, MagicZoomPlus, MagicThumb).
+4.11 (2015-11-16)
+    - Improvement to support mobile options (MagicZoom, MagicZoomPlus).
+4.10 (2015-03-31)
+    - Added support for Magic Scroll v2.
+    - Added support for Magic Slideshow v3.
+    - Added support for Magic Zoom Plus v5.
+4.9 (2013-12-12)
+    - Added support for Magic Slideshow v2.
+4.8 (2013-08-30)
+    - Improvement in the settings page: to set own settings for each store view.
+    - Added feature for configurable products: to change option when switching thumbnails of associated products.
+4.7 (2012-12-20)
+    - Module no longer overrides Mage_Catalog_Block_Product_View_Options_Type_Select class.
+    - Added thumbnail to switch between Magic360 and other (MagicZoomPlus, MagicZoom, MagicThumb, MagicMagnify, MagicMagnifyPlus, MagicTouch) module view if they are both installed.
+    - Separate tab on the settings page of the product for loading Magic360(Flash) images.
+4.6 (2012-09-07)
+    - Added ability to display custom block with images for MagicSlideshow and MagicScroll modules.
+4.5 (2012-08-22)
+    - Added support for 'Use Categories Path for Product URLs' option.
+    - Added ability to show associated product's images when option is selected or within a gallery.
+    - Added option: Include headers on all pages (default: No).
+    - Improvements in installation process.
+    - Improvement in the settings page.
+    - Added Recently Viewed block support.
+4.4 (2011-06-14)
+    - Added templates (replaced selectors-position parameter)
+    - Added Magic Scroll for selectors
+4.3 (2011-06-14)
+    - Add compatibility with Magento compiler.
+    - Fix issue with 'isModuleEnabled' function in Magento 1.4.0.1
+    - Fix issue with 'thumbnails' option in MagicSlideshow module.
+    - Fix some warnings in installer.
+4.2 (2011-06-06)
+    - Added capability combined usage of Magic360(Plus) with other magic modules.
+4.1 (2011-06-01)
+    - Added installer.
+4.0 (2011-04-28)
+    - Now supports Magento native modules system.
+    - Moved module configuration to Magento admin panel.
+    - Code rewrite.
+3.36 (2011-02-02)
+    - Fixed fatal error in module on reviews page.
+3.35 (2011-01-17)
+    - Added support for Magic Scroll.
+3.34 (2010-12-22)
+    - New option: 'selector-position' (default: bottom).
+3.33 (2010-12-15)
+    - Added support for Magic360 and Magic360Plus.
+3.32 (2010-07-28)
+    - Added support custom option of type "Radio Buttons".
+3.31 (2010-07-28)
+    - Fixed menu conflict in Magento v 1.4.1.x and above.
+3.30 (2010-07-23)
+    - Fixed PHP Warning when product image does not exist.
+3.29 (2010-07-09)
+    - Fixed fatal error on same ajax pages.
+3.28 (2010-06-25)
+    - Custom option values and image labels are now case-insensitive.
+3.27 (2010-06-08)
+    - Changes in caption-source parameter to allow multiple sources.
+3.26 (2010-05-31)
+    - Fixed some locale problems.
+3.25 (2010-05-26)
+    - Added support for configurable product attributes.
+    - Fixed JavaScript error in magictoolbox_utils.js.
+3.24 (2010-04-14)
+    - Fixed JavaScript error when product has no selectors.
+3.23 (2010-03-30)
+    - Watermark image available on thumbnails.
+3.22 (2010-03-24)
+    - Added support for multiple options.
+3.21 (2010-03-18)
+    - New option switch in Magnify.
+3.20 (2010-03-02)
+    - Headers no longer load on search results page.
+3.19 (2010-02-24)
+    - Installer is now compatible with Magento v 1.4.x.
+3.18 (2010-02-03)
+    - Headers only load when needed, not on every page.
+    - More options available for MagicThumb module.
+    - Some code optimizations.
+3.17 (2010-02-01)
+    - Fixed wrong thumb size on category pages when selector is clicked.
+    - Added 'category-selector-size' parameter.
+    - Fixed module not working on category page in rare cases.
+3.16 (2010-01-13)
+    - Magic Zoom module now works on category pages when use_effect_on_category_page is used.
+3.15 (2009-12-21)
+    - Installer optimizations.
+3.14 (2009-12-10)
+    - Installer will now check path to themes.
+    - Separate config file was working only with default theme.
+    - Effect now works on all categories.
+    - Extra white space in option price removed from option_associated_with_images option.
+3.13 (2009-12-03)
+    - Captions problem resolved on category page.
+3.12 (2009-11-11)
+    - Options now work if captions are off.
+3.11 (2009-10-28)
+    - Added 'Upgrade from ZIP' option to installer.
+3.10 (2009-10-23)
+    - Module optimizations to prevent fatal memory limit error in PHP.
+3.9 (2009-10-19)
+    - Options changed when 'thumb_change' parameter is set to 'mouseover'.
+3.8 (2009-09-23)
+    - Added support to new.phtml file (the new products page).
+3.7 (2009-09-10)
+    - Fixed the ignore_magento_css option error.
+3.6 (2009-09-01)
+    - MagicZoom and MagicThumb class values for now work for use_effect_on_category_page correctly.
+    - Added category_thumb_size option.
+3.5 (2009-08-31)
+    - Fixed Onclick on category pages, while MagicThumb is active.
+3.4 (2009-08-28)
+    - PHP file permisions error fixed in module installer.
+3.3 (2009-08-17)
+    - Caption_source option error fixed on category page.
+3.2 (2009-08-14)
+    - Magento shop available if image file is not avaliable.
+3.1 (2009-07-27)
+    - Module now works with more Magento themes.
+    - Some code optimization.
+3.0 (2009-07-06)
+    - Added installer.
+    - Solved the W3C validation error. All headers now placed in <head> section.
+2.17 (2009-07-01)
+    - Supports all templates for category page.
+    - Added support for different locales.
+2.16 (2009-06-15)
+    - Added new parameter: Size of thumbnail depends on.
+2.15 (2009-06-12)
+    - Product name shows as title when additional image has no individual title.
+2.14 (2009-06-11)
+    - Remove PHP code from category page (list.phtml file - short PHP tags not allowed by Magento).
+2.13 (2009-05-08)
+    - New option 'use_individual_titles' (default: Yes).
+2.12 (2009-04-21)
+    - Added new file 'list_modern.phtml' for modern skin.
+2.11 (2009-04-15)
+    - New option: 'show_selectors_on_category_page' (default: No).
+2.10 (2009-04-03)
+    - JS errors fixed in IE.
+    - Improvements in 'Name of option associated with images' option.
+2.9 (2009-04-03)
+    - New option: Always create square thumbnails (default: No).
+2.8 (2009-03-31)
+    - New option: Name of option associated with images (e.g 'Color').
+2.7 (2009-03-17)
+    - Added CHANGELOG.
